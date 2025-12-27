@@ -84,12 +84,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         
         if (error) {
           // Check if it's a "not found" error (PGRST116) - this is expected if profile doesn't exist
-          if (error.code === 'PGRST116') {
+          // Type guard: check if error has 'code' property (PostgrestError) vs timeout error
+          if ('code' in error && error.code === 'PGRST116') {
             // Profile doesn't exist yet - that's okay, use metadata
             profile = null
           } else {
             // Other database error - log but continue (might be RLS policy issue or table doesn't exist)
-            console.warn('Profile query error (non-fatal):', error.message, error.code)
+            const errorCode = 'code' in error ? error.code : undefined
+            console.warn('Profile query error (non-fatal):', error.message, errorCode)
             profile = null
           }
         } else {
