@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl:*)",
+      "Bash(node scripts/test-connection.js:*)",
+      "Bash(tasklist:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)",
+      "Bash(npm run dev:server:*)",
+      "Bash(timeout /t 3 /nobreak)",
+      "Bash(npm run dev:*)"
+    ]
+  }
+}
