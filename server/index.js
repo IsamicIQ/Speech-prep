@@ -696,8 +696,14 @@ IMPORTANT: For script mode, if a tone was specified, you MUST include a "tone" o
   }
 });
 
-app.listen(port, () => {
-  console.log(`SpeechPrep server listening on http://localhost:${port}`);
-});
+// Only start listening if not in Vercel environment
+if (process.env.VERCEL !== '1') {
+  app.listen(port, () => {
+    console.log(`SpeechPrep server listening on http://localhost:${port}`);
+  });
+}
+
+// Export for Vercel serverless functions
+export default app;
 
 
