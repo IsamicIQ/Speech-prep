@@ -156,7 +156,7 @@ export default function Auth() {
             </button>
           </p>
           <p style={{ marginTop: '1rem', textAlign: 'center' }}>
-            <Link to="/" className="link-button">
+            <Link to="/practice" className="link-button">
               Continue as guest
             </Link>
           </p>

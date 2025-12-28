@@ -61,7 +61,7 @@ export default function Landing() {
             <Link to="/auth" className="link-button" style={{ fontSize: '0.9rem' }}>
               Log in
             </Link>
-            <Link to="/" className="primary landing-cta">
+            <Link to="/practice" className="primary landing-cta">
               Start practising now
             </Link>
           </div>
