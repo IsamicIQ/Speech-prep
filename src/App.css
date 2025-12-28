@@ -470,6 +470,27 @@ button:not(:disabled):active {
 }
 
 .history-summary {
+  transition: color 0.2s ease;
+}
+
+.history-summary-clickable {
+  color: #475569;
+}
+
+.history-summary-clickable:hover {
+  color: #0f172a;
+}
+
+.history-summary-toggle {
+  color: #3b82f6;
+  font-weight: 500;
+  margin-left: 0.25rem;
+}
+
+.history-summary-clickable:hover .history-summary-toggle {
+  color: #2563eb;
+  text-decoration: underline;
+}
   font-size: 0.85rem;
   color: #1f2933;
   margin-top: 0.15rem;

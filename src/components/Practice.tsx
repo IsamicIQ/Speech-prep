@@ -110,6 +110,19 @@ export default function Practice() {
   const [currentScriptTone, setCurrentScriptTone] = useState<string | null>(null)
   const [currentTopic, setCurrentTopic] = useState<string | null>(null)
   const [currentTimeLimit, setCurrentTimeLimit] = useState<number | null>(null)
+  const [expandedSummaries, setExpandedSummaries] = useState<Set<string>>(new Set())
+
+  const toggleSummary = (sessionId: string) => {
+    setExpandedSummaries((prev) => {
+      const next = new Set(prev)
+      if (next.has(sessionId)) {
+        next.delete(sessionId)
+      } else {
+        next.add(sessionId)
+      }
+      return next
+    })
+  }
 
   useEffect(() => {
     const loadSessions = async () => {
@@ -754,23 +767,39 @@ export default function Practice() {
             </div>
           ) : (
             <ul className="history-list">
-              {sessions.map((session) => (
-                <li key={session.id} className="history-item">
-                  <div>
-                    <div className="history-date">
-                      {new Date(session.createdAt).toLocaleString()}
+              {sessions.map((session) => {
+                const isLong = session.feedback.summary.length > 120
+                const isExpanded = expandedSummaries.has(session.id)
+                const shouldShowFull = isExpanded || !isLong
+                const displayText = shouldShowFull
+                  ? session.feedback.summary
+                  : session.feedback.summary.slice(0, 117) + '...'
+                
+                return (
+                  <li key={session.id} className="history-item">
+                    <div>
+                      <div className="history-date">
+                        {new Date(session.createdAt).toLocaleString()}
+                      </div>
+                      <div 
+                        className={`history-summary ${isLong ? 'history-summary-clickable' : ''}`}
+                        onClick={isLong ? () => toggleSummary(session.id) : undefined}
+                        style={isLong ? { cursor: 'pointer' } : undefined}
+                      >
+                        {displayText}
+                        {isLong && (
+                          <span className="history-summary-toggle">
+                            {isExpanded ? ' (Show less)' : ' (Show more)'}
+                          </span>
+                        )}
+                      </div>
                     </div>
-                    <div className="history-summary">
-                      {session.feedback.summary.length > 120
-                        ? session.feedback.summary.slice(0, 117) + '...'
-                        : session.feedback.summary}
+                    <div className="history-score">
+                      {Math.round(session.feedback.scores.overall)}/100
                     </div>
-                  </div>
-                  <div className="history-score">
-                    {Math.round(session.feedback.scores.overall)}/100
-                  </div>
-                </li>
-              ))}
+                  </li>
+                )
+              })}
             </ul>
           )}
         </section>
