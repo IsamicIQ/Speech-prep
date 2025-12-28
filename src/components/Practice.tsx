@@ -451,6 +451,7 @@ export default function Practice() {
         <header className="app-header">
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.5rem' }}>
+              <img src="/logo.svg" alt="Speech Prep" style={{ height: '32px', width: 'auto' }} />
               <h2 className="app-title">Practice session</h2>
               {user ? (
                 <div className="user-info">

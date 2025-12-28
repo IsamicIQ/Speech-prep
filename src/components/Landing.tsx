@@ -52,7 +52,7 @@ export default function Landing() {
           className={`landing-header ${visible.has('header') ? 'fade-in' : ''}`}
         >
           <div>
-            <h1 className="landing-title">SpeechPrep</h1>
+            <img src="/logo-full.svg" alt="Speech Prep" className="landing-logo" />
             <p className="landing-tagline">
               Practise real presentations with AI that listens, scores, and coaches you to improve.
             </p>
