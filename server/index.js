@@ -277,7 +277,8 @@ app.post('/api/analyze', (req, res, next) => {
 
     // Create temp file for OpenAI (required format)
     const tempId = randomUUID();
-    const uploadsDir = path.join(process.cwd(), 'tmp');
+    // Use /tmp for serverless environments (Vercel), or ./tmp for local
+    const uploadsDir = process.env.VERCEL === '1' ? '/tmp' : path.join(process.cwd(), 'tmp');
     try {
       mkdirSync(uploadsDir, { recursive: true });
     } catch (dirError) {

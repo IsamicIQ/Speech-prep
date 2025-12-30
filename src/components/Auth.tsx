@@ -51,7 +51,7 @@ export default function Auth() {
 
       clearTimeout(timeoutId)
       if (success) {
-        navigate('/')
+        navigate('/practice')
       } else {
         setIsSubmitting(false)
       }
